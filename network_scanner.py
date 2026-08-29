@@ -1,5 +1,3 @@
-from tabnanny import verbose
-
 import scapy.all as scapy
 
 def scan(ip):
@@ -10,10 +8,19 @@ def scan(ip):
 
     print("IP\t\t\tMAC Addresss\n-----------------------------------------------")
 
+    client_list = []
+
     for element in answered_list:
-        print(element[1].psrc+ "\t\t"+ element[1].hwsrc)
-        print("\n")
+        client_dict = {"ip":element[1].psrc,"mac":element[1].hwsrc}
+        client_list.append(client_dict)
+    return client_list
+
+def print_result(result_list):
+    # print("IP\t\t\tMAC Addresss\n-----------------------------------------------")
+    for client in result_list:
+        print(client["ip"]+ "\t\t"+ client["mac"])
 
 
 
-scan("192.168.179.2/24")
+scan_result = scan("192.168.179.2/24")
+print_result(scan_result)
